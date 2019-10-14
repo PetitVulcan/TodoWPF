@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -137,9 +138,35 @@ namespace TodoWPF.ViewModels
                 AddTodoWindow w = new AddTodoWindow();
                 w.Show();
             });
+            Messenger.Default.Register<Todo>(this, t =>
+            {
+                Todo todo = ListTodoDaily.FirstOrDefault((x => x.Id == t.Id));
+                if (todo == null)
+                {
+                    ListTodoDaily.Add(t);
+                    RaiseAllRadioproperties();
+                }
+                else
+                {
+                    todo.Id = t.Id;
+                    todo.Echeance = t.Echeance;
+                    todo.DateCreation = t.DateCreation;
+                    todo.Titre = t.Titre;
+                    todo.Description = t.Description;
+                    todo.Details = t.Details;
+                    todo.Important = t.Important;
+                    RaiseAllRadioproperties();
+                }
+            });
         }
         private void RaiseAllRadioproperties()
         {
+            RaisePropertyChanged("Echeance");
+            RaisePropertyChanged("DateCreation");
+            RaisePropertyChanged("titre");
+            RaisePropertyChanged("Description");
+            RaisePropertyChanged("Details");
+            RaisePropertyChanged("Important");
             RaisePropertyChanged("viewDaily");
             RaisePropertyChanged("viewSwing");
             RaisePropertyChanged("viewLong");

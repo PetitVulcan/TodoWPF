@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -172,7 +173,7 @@ namespace TodoWPF.ViewModels
             if (todo.Add())
             {
                 MessageBox.Show("Todo ajoutée avec numéro : " + todo.Id);
-                RaiseAllProperties();
+                Messenger.Default.Send<Todo>(todo);
                 NewTodo();
             }
             else
@@ -202,7 +203,7 @@ namespace TodoWPF.ViewModels
             {
                 if (todo.Update())
                 {
-                    RaiseAllProperties();
+                    Messenger.Default.Send<Todo>(todo);
                     MessageBox.Show("Todo mise à jour");                    
                 }
                 else
@@ -223,7 +224,8 @@ namespace TodoWPF.ViewModels
             {
                 if (todo.Delete())
                 {
-                    MessageBox.Show("Todo supprimée");
+                    Messenger.Default.Send<Todo>(todo);
+                    MessageBox.Show("Todo supprimée");                    
                     NewTodo();
                     RaiseAllProperties();
                 }
@@ -245,13 +247,7 @@ namespace TodoWPF.ViewModels
             RaisePropertyChanged("Titre");
             RaisePropertyChanged("Description");
             RaisePropertyChanged("Details");
-            RaisePropertyChanged("Important");            
-            ListTodoDaily = Todo.GetTodosDaily();
-            ListTodoSwing = Todo.GetTodosSwing();
-            ListTodoLong = Todo.GetTodosLong();
-            RaisePropertyChanged("viewDaily");
-            RaisePropertyChanged("viewSwing");
-            RaisePropertyChanged("viewLong");
+            RaisePropertyChanged("Important");
         }
     }
 }

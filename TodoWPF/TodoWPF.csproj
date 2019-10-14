@@ -74,6 +74,7 @@
     <Compile Include="Tools\DataBase.cs" />
     <Compile Include="ViewModels\AddTodoViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\Patient.cs" />
     <Compile Include="Views\AddTodoWindow.xaml.cs">
       <DependentUpon>AddTodoWindow.xaml</DependentUpon>
     </Compile>

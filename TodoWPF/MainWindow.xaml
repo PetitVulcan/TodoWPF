@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TodoWPF"
        xmlns:viewModels="clr-namespace:TodoWPF.ViewModels"
         mc:Ignorable="d"
-        Title="Todo by PetitVulcan© Octobre 2019" Height="530" Width="955.2">
+        Title="Todo by PetitVulcan© Octobre 2019" Height="530" Width="955.2" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <viewModels:MainWindowViewModel></viewModels:MainWindowViewModel>
     </Window.DataContext>
@@ -25,7 +25,7 @@
                     <GridViewColumn Width="120" Header="Titre" DisplayMemberBinding="{Binding Titre}"></GridViewColumn>
                     <GridViewColumn Width="200" Header="Description" DisplayMemberBinding="{Binding Description}"></GridViewColumn>
                     <GridViewColumn Width="150" Header="Détails" DisplayMemberBinding="{Binding Details}"></GridViewColumn>
-                    <GridViewColumn Width="90" Header="Inportant" DisplayMemberBinding="{Binding Important}"></GridViewColumn>
+                    <GridViewColumn Width="90" Header="Important" DisplayMemberBinding="{Binding Important}"></GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>

@@ -12,7 +12,7 @@ namespace TodoWPF.Tools
         private static DataBase instance = null;
         private static object _lock = new object();
 
-        private string connectionString = @"Data Source=(LocalDB)\CoursMCPD;Integrated Security=True";
+        private string connectionString = @"Data Source=(LocalDB)\CoursCSharp;Integrated Security=True";
         public SqlConnection connection;
         public SqlCommand command;
         public SqlDataReader reader;
