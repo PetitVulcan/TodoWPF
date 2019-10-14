@@ -13,6 +13,7 @@ namespace TodoWPF.Models
     {
         private int id;
         private string echeance;
+        private DateTime dateCreation;
         private string titre;
         private string description;
         private string details;
@@ -20,16 +21,19 @@ namespace TodoWPF.Models
 
         public int Id { get => id; set => id = value; }
         public string Echeance { get => echeance; set => echeance = value; }
+        public DateTime DateCreation { get => dateCreation; set => dateCreation = value; }
         public string Titre { get => titre; set => titre = value; }
         public string Description { get => description; set => description = value; }
         public string Details { get => details; set => details = value; }
         public string Important { get => important; set => important = value; }
 
+
         public bool Add()
         {
             bool res = false;
-            DataBase.Instance.command = new SqlCommand("INSERT INTO todo_wpf (echeance, titre, description, details, important) OUTPUT INSERTED.ID values (@echeance, @titre, @description, @details, @important)", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("INSERT INTO todo_wpf (echeance, date_creation, titre, description, details, important) OUTPUT INSERTED.ID values (@echeance, @dateCreation, @titre, @description, @details, @important)", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@echeance", Echeance));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@dateCreation", DateCreation));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@titre", Titre));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@description", Description));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@details", Details));
@@ -49,9 +53,10 @@ namespace TodoWPF.Models
         {
             bool res = false;
             DataBase.Instance.command = new SqlCommand("UPDATE todo_wpf set " +
-                "echeance=@echeance, titre = @titre, description = @description, details = @details, important = @important " +
+                "echeance=@echeance,date_creation=@dateCreation, titre = @titre, description = @description, details = @details, important = @important " +
                 "WHERE id = @id", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@echeance", Echeance));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@dateCreation", DateCreation));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@titre", Titre));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@description", Description));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@details", Details));
@@ -81,10 +86,31 @@ namespace TodoWPF.Models
             DataBase.Instance.connection.Close();
             return res;
         }
+        public static Todo GetTodo(string Titre)
+        {
+            Todo t = new Todo();
+            DataBase.Instance.command = new SqlCommand("SELECT id, echeance, date_creation, titre, description, details, important from todo_wpf WHERE titre=@titre", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@titre", Titre));
+            DataBase.Instance.connection.Open();
+            DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
+            while (DataBase.Instance.reader.Read())
+            {
+                t.Id = DataBase.Instance.reader.GetInt32(0);
+                t.Echeance = DataBase.Instance.reader.GetString(1);
+                t.DateCreation = DataBase.Instance.reader.GetDateTime(2);
+                t.Titre = DataBase.Instance.reader.GetString(3);
+                t.Description = DataBase.Instance.reader.GetString(4);
+                t.Details = DataBase.Instance.reader.GetString(5);
+                t.Important = DataBase.Instance.reader.GetString(6);
+            }
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+            return t;
+        }
         public static ObservableCollection<Todo> GetTodos()
         {
             ObservableCollection<Todo> liste = new ObservableCollection<Todo>();
-            DataBase.Instance.command = new SqlCommand("SELECT id, echeance, titre, description, details, important from todo_wpf", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("SELECT id, echeance, date_creation, titre, description, details, important from todo_wpf", DataBase.Instance.connection);
 
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
@@ -93,10 +119,11 @@ namespace TodoWPF.Models
                 Todo t = new Todo();
                 t.Id = DataBase.Instance.reader.GetInt32(0);
                 t.Echeance = DataBase.Instance.reader.GetString(1);
-                t.Titre = DataBase.Instance.reader.GetString(2);
-                t.Description = DataBase.Instance.reader.GetString(3);
-                t.Details = DataBase.Instance.reader.GetString(4);
-                t.Important = DataBase.Instance.reader.GetString(5);
+                t.DateCreation = DataBase.Instance.reader.GetDateTime(2);
+                t.Titre = DataBase.Instance.reader.GetString(3);
+                t.Description = DataBase.Instance.reader.GetString(4);
+                t.Details = DataBase.Instance.reader.GetString(5);
+                t.Important = DataBase.Instance.reader.GetString(6);
                 liste.Add(t);
             }
             DataBase.Instance.command.Dispose();
@@ -143,11 +170,5 @@ namespace TodoWPF.Models
             }
             return TodosLong;
         }
-    }
-    public enum Echeance
-    {
-        Daily,
-        Swing,
-        Long
     }
 }

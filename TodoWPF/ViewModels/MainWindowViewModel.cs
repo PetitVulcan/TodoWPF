@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,7 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using TodoWPF.Models;
+using TodoWPF.Views;
 
 namespace TodoWPF.ViewModels
 {
@@ -15,6 +18,8 @@ namespace TodoWPF.ViewModels
         public static ObservableCollection<Todo> ListTodoDaily { get; set; }
         public static ObservableCollection<Todo> ListTodoSwing { get; set; }
         public static ObservableCollection<Todo> ListTodoLong { get; set; }
+
+        public ICommand ManageCommand { get; set; }
         public bool CheckDaily
         {
             get => viewDaily == Visibility.Visible;
@@ -125,11 +130,13 @@ namespace TodoWPF.ViewModels
             ListTodoSwing = Todo.GetTodosSwing();
             ListTodoLong = Todo.GetTodosLong();
             todo = new Todo();
-            
-            viewDaily = Visibility.Hidden;
-            viewSwing = Visibility.Hidden;
-            viewLong = Visibility.Hidden;
+            CheckDaily = true;
             RaiseAllRadioproperties();
+            ManageCommand = new RelayCommand(() =>
+            {
+                AddTodoWindow w = new AddTodoWindow();
+                w.Show();
+            });
         }
         private void RaiseAllRadioproperties()
         {

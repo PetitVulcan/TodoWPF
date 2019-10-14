@@ -6,30 +6,30 @@
         xmlns:local="clr-namespace:TodoWPF"
        xmlns:viewModels="clr-namespace:TodoWPF.ViewModels"
         mc:Ignorable="d"
-        Title="Todo by PetitVulcan© Octobre 2019" Height="450" Width="800">
+        Title="Todo by PetitVulcan© Octobre 2019" Height="530" Width="955.2">
     <Window.DataContext>
         <viewModels:MainWindowViewModel></viewModels:MainWindowViewModel>
     </Window.DataContext>
     <Grid Background="LightGray">
-            <GroupBox Header=" Echéance " FontSize="18" BorderBrush="white" HorizontalAlignment="Left" Height="77" Margin="84,26,0,0" VerticalAlignment="Top" Width="635">
-                <Grid>
-                    <RadioButton Content="Daily" IsChecked="{Binding CheckDaily}" FontSize="15" HorizontalAlignment="Left" Margin="41,10,0,0" VerticalAlignment="Top"/>
-                    <RadioButton Content="Swing" IsChecked="{Binding CheckSwing}" FontSize="15" HorizontalAlignment="Left" Margin="251,10,0,0" VerticalAlignment="Top"/>
-                    <RadioButton Content="Long" IsChecked="{Binding CheckLong}" FontSize="15" HorizontalAlignment="Left" Margin="453,10,0,0" VerticalAlignment="Top"/>
-                </Grid>
-            </GroupBox>
-        <ListView ItemsSource="{Binding ListTodoDaily}" Visibility="{Binding ViewDaily}" Margin="82,126,75,32">
-                <ListView.View >
-                    <GridView>
-                        <GridViewColumn Width="70" Header="Echéance" DisplayMemberBinding="{Binding Echeance}"></GridViewColumn>
-                        <GridViewColumn Width="120" Header="Titre" DisplayMemberBinding="{Binding Titre}"></GridViewColumn>
-                        <GridViewColumn Width="200" Header="Description" DisplayMemberBinding="{Binding Description}"></GridViewColumn>
-                        <GridViewColumn Width="150" Header="Détails" DisplayMemberBinding="{Binding Details}"></GridViewColumn>
-                        <GridViewColumn Width="90" Header="Inportant" DisplayMemberBinding="{Binding Important}"></GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        <ListView ItemsSource="{Binding ListTodoSwing}" Visibility="{Binding ViewSwing}" Margin="82,126,75,32">
+        <GroupBox Header=" Echéance " FontSize="16" BorderBrush="white" HorizontalAlignment="Left" Height="64" Margin="35,80,0,0" VerticalAlignment="Top" Width="635">
+            <Grid>
+                <RadioButton Content="Daily" IsChecked="{Binding CheckDaily}" FontSize="15" HorizontalAlignment="Left" Margin="41,10,0,0" VerticalAlignment="Top"/>
+                <RadioButton Content="Swing" IsChecked="{Binding CheckSwing}" FontSize="15" HorizontalAlignment="Left" Margin="251,10,0,0" VerticalAlignment="Top"/>
+                <RadioButton Content="Long" IsChecked="{Binding CheckLong}" FontSize="15" HorizontalAlignment="Left" Margin="453,10,0,0" VerticalAlignment="Top"/>
+            </Grid>
+        </GroupBox>
+        <ListView ItemsSource="{Binding ListTodoDaily}" Visibility="{Binding ViewDaily}" Margin="35,174,278.8,32" Background="gray">
+            <ListView.View  >
+                <GridView>
+                    <GridViewColumn Width="70" Header="Echéance" DisplayMemberBinding="{Binding Echeance}"></GridViewColumn>
+                    <GridViewColumn Width="120" Header="Titre" DisplayMemberBinding="{Binding Titre}"></GridViewColumn>
+                    <GridViewColumn Width="200" Header="Description" DisplayMemberBinding="{Binding Description}"></GridViewColumn>
+                    <GridViewColumn Width="150" Header="Détails" DisplayMemberBinding="{Binding Details}"></GridViewColumn>
+                    <GridViewColumn Width="90" Header="Inportant" DisplayMemberBinding="{Binding Important}"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView ItemsSource="{Binding ListTodoSwing}" Visibility="{Binding ViewSwing}"  Margin="35,174,278.8,32" Background="gray">
             <ListView.View >
                 <GridView>
                     <GridViewColumn Width="70" Header="Echéance" DisplayMemberBinding="{Binding Echeance}"></GridViewColumn>
@@ -40,7 +40,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView ItemsSource="{Binding ListTodoLong}" Visibility="{Binding ViewLong}" Margin="82,126,75,32">
+        <ListView ItemsSource="{Binding ListTodoLong}" Visibility="{Binding ViewLong}"  Margin="35,174,278.8,32" Background="gray">
             <ListView.View >
                 <GridView>
                     <GridViewColumn Width="70" Header="Echéance" DisplayMemberBinding="{Binding Echeance}"></GridViewColumn>
@@ -50,6 +50,12 @@
                     <GridViewColumn Width="90" Header="Inportant" DisplayMemberBinding="{Binding Important}"></GridViewColumn>
                 </GridView>
             </ListView.View>
-        </ListView>       
+        </ListView>
+        <Label Content="Todo Manager" FontSize="25" HorizontalAlignment="Left" Margin="399,22,0,0" VerticalAlignment="Top" Width="177" Height="44"/>
+        <Button Content="Manage Todo" FontSize="20" HorizontalAlignment="Left" Margin="740,98,0,0" VerticalAlignment="Top" Width="157" Height="46" Cursor="Hand" Command="{Binding ManageCommand}">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
     </Grid>
 </Window>
