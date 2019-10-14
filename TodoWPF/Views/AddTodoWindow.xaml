@@ -54,7 +54,7 @@
                 <RadioButton Content="Normal" IsChecked="{Binding ImportantFalse}" FontSize="15" HorizontalAlignment="Left" Margin="154,267,0,0" VerticalAlignment="Top"/>
                 <RadioButton Content="Important" IsChecked="{Binding ImportantTrue}" FontSize="15" HorizontalAlignment="Left" Margin="239,267,0,0" VerticalAlignment="Top"/>
                 <Label Content="Echéance :" HorizontalAlignment="Left" Margin="21,20,0,0" FontSize="15" VerticalAlignment="Top" Width="88"/>
-                <Button Content="Fermer" Command="{Binding DeleteCommand}" Background="White" HorizontalAlignment="Left" Margin="366,254,0,0" VerticalAlignment="Top" Width="123" Height="32">
+                <Button Content="Fermer" Command="{Binding CloseCommand}" Background="White" HorizontalAlignment="Left" Margin="366,254,0,0" VerticalAlignment="Top" Width="123" Height="32">
                     <Button.Effect>
                         <DropShadowEffect/>
                     </Button.Effect>

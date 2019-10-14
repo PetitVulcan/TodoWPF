@@ -16,145 +16,126 @@ namespace TodoWPF.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public static ObservableCollection<Todo> ListTodoDaily { get; set; }
-        public static ObservableCollection<Todo> ListTodoSwing { get; set; }
-        public static ObservableCollection<Todo> ListTodoLong { get; set; }
+        //public static ObservableCollection<Todo> ListTodoDaily { get; set; }
+        //public static ObservableCollection<Todo> ListTodoSwing { get; set; }
+        //public static ObservableCollection<Todo> ListTodoLong { get; set; }
+        public dynamic ListeAfficher { get; set; }
 
         public ICommand ManageCommand { get; set; }
+        public ICommand CloseCommand { get; set; }
+        public ICommand NotClickCommand { get; set; }
+        public ICommand EncourageCommand { get; set; }
+
+        private bool checkDaily;
+        private bool checkSwing;
+        private bool checkLong;
         public bool CheckDaily
         {
-            get => viewDaily == Visibility.Visible;
+            get => checkDaily;
             set
             {
+                checkDaily = value;
                 if (value)
                 {
-                    viewDaily = Visibility.Visible;
-                    viewSwing = Visibility.Hidden;
-                    viewLong = Visibility.Hidden;
-                    RaiseAllRadioproperties();
+                    CheckSwing = false;
+                    CheckLong = false;
+                    ListeAfficher = Todo.GetTodosDaily();
+                    RaisePropertyChanged("ListeAfficher");
                 }
+                RaisePropertyChanged();
             }
         }
         public bool CheckSwing
         {
-            get => viewSwing == Visibility.Visible;
+            get => checkSwing;
             set
             {
+                checkSwing = value;
                 if (value)
                 {
-                    viewDaily = Visibility.Hidden;
-                    viewSwing = Visibility.Visible;
-                    viewLong = Visibility.Hidden;
-                    RaiseAllRadioproperties();
+                    CheckDaily = false;
+                    CheckLong = false;
+                    ListeAfficher = Todo.GetTodosSwing();
+                    RaisePropertyChanged("ListeAfficher");
                 }
             }
         }
         public bool CheckLong
         {
-            get => viewLong == Visibility.Visible;
+            get => checkLong;
             set
             {
+                checkLong = value;
                 if (value)
                 {
-                    viewDaily = Visibility.Hidden;
-                    viewSwing = Visibility.Hidden;
-                    viewLong = Visibility.Visible;
-                    RaiseAllRadioproperties();
+                    CheckDaily = false;
+                    CheckSwing = false;
+                    ListeAfficher = Todo.GetTodosLong();
+                    RaisePropertyChanged("ListeAfficher");
                 }
             }
         }
-        private Visibility viewDaily;
-        public Visibility ViewDaily
-        {
-            get => viewDaily;
-        }
-        private Visibility viewSwing;
-        public Visibility ViewSwing
-        {
-            get => viewSwing;
-        }
-        private Visibility viewLong;
-        public Visibility ViewLong
-        {
-            get => viewLong;
-        }
-        private Todo todo;
         
-        public string Echeance
-        {
-            get => todo.Echeance;
-            set
-            {
-                todo.Echeance = value;
-                RaisePropertyChanged();
-            }
-        }
-        public string Titre
-        {
-            get => todo.Titre;
-            set
-            {
-                todo.Titre = value;
-                RaisePropertyChanged();
-            }
-        }
-        public string Description
-        {
-            get => todo.Description;
-            set
-            {
-                todo.Description = value;
-                RaisePropertyChanged();
-            }
-        }
-        public string Details
-        {
-            get => todo.Details;
-            set
-            {
-                todo.Details = value;
-                RaisePropertyChanged();
-            }
-        }
-        public string Important
-        {
-            get => todo.Important;
-            set
-            {
-                todo.Important = value;
-                RaisePropertyChanged();
-            }
-        }
+        private Todo todo;
+        private int count;
         public MainWindowViewModel()
         {
-            ListTodoDaily = Todo.GetTodosDaily();
-            ListTodoSwing = Todo.GetTodosSwing();
-            ListTodoLong = Todo.GetTodosLong();
-            todo = new Todo();
+            count = 0;
             CheckDaily = true;
-            RaiseAllRadioproperties();
+            ListeAfficher = Todo.GetTodosDaily();
+
             ManageCommand = new RelayCommand(() =>
             {
                 AddTodoWindow w = new AddTodoWindow();
                 w.Show();
             });
+            NotClickCommand = new RelayCommand(() =>
+            {
+                count++;
+                if(count == 1)
+                {
+                    MessageBox.Show("1er avertissement ! Y'a quoi que tu ne comprends pas dans DO NOT CLICK ?");                   
+                }
+                if (count == 2)
+                {
+                    MessageBox.Show("2eme avertissement ! Do not click... C'est DO NOT CLICK !");
+                }
+                if (count == 3)
+                {
+                    MessageBox.Show("Bon, très bien ! Monsieur me prend de haut !");
+                    foreach (Window w in Application.Current.Windows)
+                    {
+                        w.Close();
+                    }
+                }
+            });
+            EncourageCommand = new RelayCommand(() =>
+            {
+                Random rnd = new Random();
+                int encourage = rnd.Next(1, 13);
+                Encouragement(encourage);
+            });
+            CloseCommand = new RelayCommand(() =>
+            {
+                foreach (Window w in Application.Current.Windows)
+                {
+                    w.Close();
+                }
+            });
             Messenger.Default.Register<Todo>(this, t =>
             {
-                Todo todo = ListTodoDaily.FirstOrDefault((x => x.Id == t.Id));
+                Todo newtodo = new Todo();
+                foreach (Todo todoTmp in ListeAfficher)
+                {
+                    if(todoTmp.Id == t.Id)
+                    {
+                        newtodo = todoTmp;
+                    }
+                }
+                
                 if (todo == null)
                 {
-                    ListTodoDaily.Add(t);
-                    RaiseAllRadioproperties();
-                }
-                else
-                {
-                    todo.Id = t.Id;
-                    todo.Echeance = t.Echeance;
-                    todo.DateCreation = t.DateCreation;
-                    todo.Titre = t.Titre;
-                    todo.Description = t.Description;
-                    todo.Details = t.Details;
-                    todo.Important = t.Important;
+                    ListeAfficher.Add(t);
                     RaiseAllRadioproperties();
                 }
             });
@@ -170,6 +151,58 @@ namespace TodoWPF.ViewModels
             RaisePropertyChanged("viewDaily");
             RaisePropertyChanged("viewSwing");
             RaisePropertyChanged("viewLong");
+        }
+        private void Encouragement(int encourage)
+        {
+            if(encourage==1)
+            {
+                MessageBox.Show("Allez Nicolas, courrage! Tu vas y arriver :) !");
+            }
+            if (encourage == 2)
+            {
+                MessageBox.Show("Tu vas y parvenir, c'est certain! Courrage !");
+            }
+            if (encourage == 3)
+            {
+                MessageBox.Show("Force & Robustesse, comme dit une personne très célèbre !");
+            }
+            if (encourage == 4)
+            {
+                MessageBox.Show("Respires à fond... et vas y à fond !");
+            }
+            if (encourage == 5)
+            {
+                MessageBox.Show("Allé Nico ! ... Allé Nico ... ! Allé Nico !");
+            }
+            if (encourage == 6)
+            {
+                MessageBox.Show("Labourrage et pâturage sont les deux mamelles de la France...( tu t'es pas trompé là?");
+            }
+            if (encourage == 7)
+            {
+                MessageBox.Show("Je veux un N ! Je veux un I ! Je veux un C ! je veux un O! ALLEZ NICO ! ! !");
+            }
+            if (encourage == 8)
+            {
+                MessageBox.Show("Mini Hola pour... TOI ! ALLEZ Nico !");
+            }
+            if (encourage == 9)
+            {
+                MessageBox.Show("Allez vas-y tu vas assurer GRAVE ! :) ");
+            }
+            if (encourage == 10)
+            {
+                MessageBox.Show("Nicolas? C'est le BHL des marchés financiers !");
+            }
+            if (encourage == 11)
+            {
+                MessageBox.Show("Nico! Pouloupoupou! Nico! Pouloupoupou!");
+            }
+            if (encourage == 12)
+            {
+                MessageBox.Show("AAAAAAALLLLLLLEEEEEEEEEZZZZZZZZ NICO! :)");
+            }
+
         }
     }
 }

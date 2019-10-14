@@ -137,6 +137,7 @@ namespace TodoWPF.ViewModels
         public ICommand EditCommand { get; set; }
 
         public ICommand DeleteCommand { get; set; }
+        public ICommand CloseCommand { get; set; }
         public static ObservableCollection<Todo> ListTodoDaily { get; set; }
         public static ObservableCollection<Todo> ListTodoSwing { get; set; }
         public static ObservableCollection<Todo> ListTodoLong { get; set; }
@@ -149,9 +150,11 @@ namespace TodoWPF.ViewModels
             EditCommand = new RelayCommand(UpdateTodo);
             DeleteCommand = new RelayCommand(DeletePatient);
             SearchCommand = new RelayCommand(SearchTodo);
+            CloseCommand = new RelayCommand(()=>
+            {
+                Application.Current.Windows.Cast<Window>().FirstOrDefault(x => x.IsActive).Close();
+            });
         }
-
-
         private void NewTodo()
         {
             todo = new Todo();
@@ -166,8 +169,6 @@ namespace TodoWPF.ViewModels
             EcheanceSwing = false;
             EcheanceLong = false;
         }
-
-
         private void AddTodo()
         {
             if (todo.Add())
@@ -181,7 +182,6 @@ namespace TodoWPF.ViewModels
                 MessageBox.Show("Erreur d'insertion");
             }
         }
-
         private void SearchTodo()
         {
             todo = Todo.GetTodo(Titre);
