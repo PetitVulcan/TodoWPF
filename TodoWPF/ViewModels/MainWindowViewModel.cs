@@ -131,9 +131,8 @@ namespace TodoWPF.ViewModels
                     {
                         newtodo = todoTmp;
                     }
-                }
-                
-                if (todo == null)
+                }                
+                if (newtodo == null)
                 {
                     ListeAfficher.Add(t);
                     RaiseAllRadioproperties();
