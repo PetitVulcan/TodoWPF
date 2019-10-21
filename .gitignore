@@ -4,7 +4,7 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # DataBase Connection
-TodoWPF\Tools\DataBase.cs
+TodoWPF\TodoWPF\Tools\DataBase.cs
 
 # User-specific files
 *.suo
