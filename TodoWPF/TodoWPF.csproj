@@ -161,7 +161,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="wSQLxTables\Tables.sql" />
+    <Content Include="xSQLxTables\Tables.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
