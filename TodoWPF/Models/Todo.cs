@@ -32,7 +32,7 @@ namespace TodoWPF.Models
         public bool Add()
         {
             bool res = false;
-            DataBase.Instance.command = new MySqlCommand("INSERT INTO todo_liste (echeance, date_creation, titre, description, details, important) values (@echeance, @dateCreation, @titre, @description, @details, @important)", DataBase.Instance.connection);
+            DataBase.Instance.command = new MySqlCommand("INSERT INTO todo_psyko (echeance, date_creation, titre, description, details, important) values (@echeance, @dateCreation, @titre, @description, @details, @important)", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new MySqlParameter("@echeance", Echeance));
             DataBase.Instance.command.Parameters.Add(new MySqlParameter("@dateCreation", DateCreation));
             DataBase.Instance.command.Parameters.Add(new MySqlParameter("@titre", Titre));
@@ -53,7 +53,7 @@ namespace TodoWPF.Models
         public bool Update()
         {
             bool res = false;
-            DataBase.Instance.command = new MySqlCommand("UPDATE todo_liste set " +
+            DataBase.Instance.command = new MySqlCommand("UPDATE todo_psyko set " +
                 "echeance=@echeance,date_creation=@dateCreation, titre = @titre, description = @description, details = @details, important = @important " +
                 "WHERE id = @id", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new MySqlParameter("@echeance", Echeance));
@@ -76,7 +76,7 @@ namespace TodoWPF.Models
         public bool Delete()
         {
             bool res = false;
-            DataBase.Instance.command = new MySqlCommand("DELETE FROM todo_liste where id = @id", DataBase.Instance.connection);
+            DataBase.Instance.command = new MySqlCommand("DELETE FROM todo_psyko where id = @id", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new MySqlParameter("@id", Id));
             DataBase.Instance.connection.Open();
             if (DataBase.Instance.command.ExecuteNonQuery() > 0)
@@ -90,7 +90,7 @@ namespace TodoWPF.Models
         public static Todo GetTodo(string Titre)
         {
             Todo t = new Todo();
-            DataBase.Instance.command = new MySqlCommand("SELECT id, echeance, date_creation, titre, description, details, important from todo_liste WHERE titre=@titre", DataBase.Instance.connection);
+            DataBase.Instance.command = new MySqlCommand("SELECT id, echeance, date_creation, titre, description, details, important from todo_psyko WHERE titre=@titre", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new MySqlParameter("@titre", Titre));
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
@@ -111,7 +111,7 @@ namespace TodoWPF.Models
         public static ObservableCollection<Todo> GetTodos()
         {
             ObservableCollection<Todo> liste = new ObservableCollection<Todo>();
-            DataBase.Instance.command = new MySqlCommand("SELECT id, echeance, date_creation, titre, description, details, important from todo_liste", DataBase.Instance.connection);
+            DataBase.Instance.command = new MySqlCommand("SELECT id, echeance, date_creation, titre, description, details, important from todo_psyko", DataBase.Instance.connection);
 
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
