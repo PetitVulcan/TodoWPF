@@ -23,6 +23,7 @@ namespace TodoWPF.ViewModels
 
         public ICommand ManageCommand { get; set; }
         public ICommand CloseCommand { get; set; }
+        public ICommand AboutCommand { get; set; }
         public ICommand NotClickCommand { get; set; }
         public ICommand EncourageCommand { get; set; }
 
@@ -114,6 +115,11 @@ namespace TodoWPF.ViewModels
                 Random rnd = new Random();
                 int encourage = rnd.Next(1, 13);
                 Encouragement(encourage);
+            });
+            AboutCommand = new RelayCommand(() =>
+            {
+                AboutWindow a = new AboutWindow();
+                a.Show();
             });
             CloseCommand = new RelayCommand(() =>
             {

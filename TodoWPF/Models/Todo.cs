@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
@@ -31,15 +32,15 @@ namespace TodoWPF.Models
         public bool Add()
         {
             bool res = false;
-            DataBase.Instance.command = new SqlCommand("INSERT INTO todo_wpf (echeance, date_creation, titre, description, details, important) OUTPUT INSERTED.ID values (@echeance, @dateCreation, @titre, @description, @details, @important)", DataBase.Instance.connection);
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@echeance", Echeance));
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@dateCreation", DateCreation));
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@titre", Titre));
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@description", Description));
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@details", Details));
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@important", Important));
+            DataBase.Instance.command = new MySqlCommand("INSERT INTO todo_liste (echeance, date_creation, titre, description, details, important) values (@echeance, @dateCreation, @titre, @description, @details, @important)", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new MySqlParameter("@echeance", Echeance));
+            DataBase.Instance.command.Parameters.Add(new MySqlParameter("@dateCreation", DateCreation));
+            DataBase.Instance.command.Parameters.Add(new MySqlParameter("@titre", Titre));
+            DataBase.Instance.command.Parameters.Add(new MySqlParameter("@description", Description));
+            DataBase.Instance.command.Parameters.Add(new MySqlParameter("@details", Details));
+            DataBase.Instance.command.Parameters.Add(new MySqlParameter("@important", Important));
             DataBase.Instance.connection.Open();
-            Id = (int)DataBase.Instance.command.ExecuteScalar();
+            Id = (int)DataBase.Instance.command.ExecuteNonQuery();
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();
             if (Id > 0)
@@ -52,16 +53,16 @@ namespace TodoWPF.Models
         public bool Update()
         {
             bool res = false;
-            DataBase.Instance.command = new SqlCommand("UPDATE todo_wpf set " +
+            DataBase.Instance.command = new MySqlCommand("UPDATE todo_liste set " +
                 "echeance=@echeance,date_creation=@dateCreation, titre = @titre, description = @description, details = @details, important = @important " +
                 "WHERE id = @id", DataBase.Instance.connection);
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@echeance", Echeance));
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@dateCreation", DateCreation));
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@titre", Titre));
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@description", Description));
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@details", Details));
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@important", Important));
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@id", Id));
+            DataBase.Instance.command.Parameters.Add(new MySqlParameter("@echeance", Echeance));
+            DataBase.Instance.command.Parameters.Add(new MySqlParameter("@dateCreation", DateCreation));
+            DataBase.Instance.command.Parameters.Add(new MySqlParameter("@titre", Titre));
+            DataBase.Instance.command.Parameters.Add(new MySqlParameter("@description", Description));
+            DataBase.Instance.command.Parameters.Add(new MySqlParameter("@details", Details));
+            DataBase.Instance.command.Parameters.Add(new MySqlParameter("@important", Important));
+            DataBase.Instance.command.Parameters.Add(new MySqlParameter("@id", Id));
             DataBase.Instance.connection.Open();
             if (DataBase.Instance.command.ExecuteNonQuery() > 0)
             {
@@ -75,8 +76,8 @@ namespace TodoWPF.Models
         public bool Delete()
         {
             bool res = false;
-            DataBase.Instance.command = new SqlCommand("DELETE FROM todo_wpf where id = @id", DataBase.Instance.connection);
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@id", Id));
+            DataBase.Instance.command = new MySqlCommand("DELETE FROM todo_liste where id = @id", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new MySqlParameter("@id", Id));
             DataBase.Instance.connection.Open();
             if (DataBase.Instance.command.ExecuteNonQuery() > 0)
             {
@@ -89,8 +90,8 @@ namespace TodoWPF.Models
         public static Todo GetTodo(string Titre)
         {
             Todo t = new Todo();
-            DataBase.Instance.command = new SqlCommand("SELECT id, echeance, date_creation, titre, description, details, important from todo_wpf WHERE titre=@titre", DataBase.Instance.connection);
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@titre", Titre));
+            DataBase.Instance.command = new MySqlCommand("SELECT id, echeance, date_creation, titre, description, details, important from todo_liste WHERE titre=@titre", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new MySqlParameter("@titre", Titre));
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
             while (DataBase.Instance.reader.Read())
@@ -110,7 +111,7 @@ namespace TodoWPF.Models
         public static ObservableCollection<Todo> GetTodos()
         {
             ObservableCollection<Todo> liste = new ObservableCollection<Todo>();
-            DataBase.Instance.command = new SqlCommand("SELECT id, echeance, date_creation, titre, description, details, important from todo_wpf", DataBase.Instance.connection);
+            DataBase.Instance.command = new MySqlCommand("SELECT id, echeance, date_creation, titre, description, details, important from todo_liste", DataBase.Instance.connection);
 
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();

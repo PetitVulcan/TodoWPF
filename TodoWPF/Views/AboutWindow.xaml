@@ -1,0 +1,26 @@
+﻿<Window x:Class="TodoWPF.Views.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TodoWPF.Views"
+        xmlns:viewModels="clr-namespace:TodoWPF.ViewModels"
+        mc:Ignorable="d"
+        Title="AboutWindow" Height="279.897" Width="477.57" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <viewModels:AboutWindowViewModel></viewModels:AboutWindowViewModel>
+    </Window.DataContext>
+    <Grid Background="lightgray" Margin="0,0,0,-1">
+        <GroupBox Header=" About " Foreground="White" FontSize="20" Margin="46,23,55,33">
+            <Grid Margin="0,0,0,-1">
+                <Label Content="Todo© PetitVulcan - Octobre 2019"  Foreground="White" FontSize="15" Margin="59,10,48,102" ></Label>
+                <Label Content="For more works and applications, please visit:"  Foreground="White" FontSize="15" Margin="22,52,10,58"></Label>
+                <Button Content="a.dipersio.free.fr"  Background="White"   HorizontalAlignment="Left"  VerticalAlignment="Top" Width="232" Margin="59,102,0,0" Click="Button_Click" Cursor="Hand">
+                    <Button.Effect>
+                        <DropShadowEffect/>
+                    </Button.Effect>
+                </Button>
+            </Grid>           
+        </GroupBox>
+    </Grid>
+</Window>

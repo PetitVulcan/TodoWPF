@@ -11,41 +11,46 @@
         <viewModels:MainWindowViewModel></viewModels:MainWindowViewModel>
     </Window.DataContext>
     <Grid Background="LightGray">
-        <GroupBox Header=" Echéance " FontSize="16" BorderBrush="white" HorizontalAlignment="Left" Height="64" Margin="35,54,0,0" VerticalAlignment="Top" Width="678">
+        <GroupBox Header=" Echéance " FontSize="16" BorderBrush="white" HorizontalAlignment="Left" Height="64" Margin="35,54,0,0" VerticalAlignment="Top" Width="873">
             <Grid>
-                <RadioButton Content="Daily" IsChecked="{Binding CheckDaily}" FontSize="15" HorizontalAlignment="Left" Margin="41,10,0,0" VerticalAlignment="Top"/>
-                <RadioButton Content="Swing" IsChecked="{Binding CheckSwing}" FontSize="15" HorizontalAlignment="Left" Margin="251,10,0,0" VerticalAlignment="Top"/>
-                <RadioButton Content="Long" IsChecked="{Binding CheckLong}" FontSize="15" HorizontalAlignment="Left" Margin="453,10,0,0" VerticalAlignment="Top"/>
+                <RadioButton Content="Daily" IsChecked="{Binding CheckDaily}" FontSize="15" HorizontalAlignment="Left" Margin="204,10,0,0" VerticalAlignment="Top"/>
+                <RadioButton Content="Swing" IsChecked="{Binding CheckSwing}" FontSize="15" HorizontalAlignment="Left" Margin="394,10,0,0" VerticalAlignment="Top"/>
+                <RadioButton Content="Long" IsChecked="{Binding CheckLong}" FontSize="15" HorizontalAlignment="Left" Margin="613,10,0,0" VerticalAlignment="Top"/>
             </Grid>
         </GroupBox>
-        <ListView ItemsSource="{Binding ListeAfficher}" Margin="35,139,234,32" Background="gray">
+        <ListView ItemsSource="{Binding ListeAfficher}" Margin="35,139,234,32" Background="gray" Foreground="white">
             <ListView.View  >
                 <GridView>
                     <GridViewColumn Width="70" Header="Echéance" DisplayMemberBinding="{Binding Echeance}"></GridViewColumn>
                     <GridViewColumn Width="120" Header="Titre" DisplayMemberBinding="{Binding Titre}"></GridViewColumn>
                     <GridViewColumn Width="200" Header="Description" DisplayMemberBinding="{Binding Description}"></GridViewColumn>
-                    <GridViewColumn Width="150" Header="Détails" DisplayMemberBinding="{Binding Details}"></GridViewColumn>
+                    <GridViewColumn Width="160" Header="Détails" DisplayMemberBinding="{Binding Details}"></GridViewColumn>
                     <GridViewColumn Width="90" Header="Important" DisplayMemberBinding="{Binding Important}"></GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
         <Label Content="Todo Manager" FontSize="25" HorizontalAlignment="Left" Margin="385,10,0,0" VerticalAlignment="Top" Width="177" Height="44"/>
-        <Button Content="Manage Todo" Background="white" FontSize="20" HorizontalAlignment="Left" Margin="752,86,0,0" VerticalAlignment="Top" Width="156" Height="46" Cursor="Hand" Command="{Binding ManageCommand}">
+        <Button Content="Manage Todo" Background="white" FontSize="20" HorizontalAlignment="Left" Margin="752,139,0,0" VerticalAlignment="Top" Width="156" Height="46" Cursor="Hand" Command="{Binding ManageCommand}">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
         </Button>
-        <Button Content="Do not Click" Background="white" FontSize="20" HorizontalAlignment="Left" Margin="752,176,0,0" VerticalAlignment="Top" Width="157" Height="46" Cursor="Hand" Command="{Binding NotClickCommand}">
+        <Button Content="Do not Click" Background="white" FontSize="20" HorizontalAlignment="Left" Margin="752,207,0,0" VerticalAlignment="Top" Width="157" Height="46" Cursor="Hand" Command="{Binding NotClickCommand}">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
         </Button>
-        <Button Content="Encourage" Background="white" FontSize="20" HorizontalAlignment="Left" Margin="752,265,0,0" VerticalAlignment="Top" Width="157" Height="46" Cursor="Hand" Command="{Binding EncourageCommand}">
+        <Button Content="Encourage" Background="white" FontSize="20" HorizontalAlignment="Left" Margin="752,279,0,0" VerticalAlignment="Top" Width="157" Height="46" Cursor="Hand" Command="{Binding EncourageCommand}">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
         </Button>
-        <Button Content="Quit" Background="white" FontSize="20" HorizontalAlignment="Left" Margin="752,352,0,0" VerticalAlignment="Top" Width="157" Height="46" Cursor="Hand" Command="{Binding CloseCommand}">
+        <Button Content="About" Background="white" FontSize="20" HorizontalAlignment="Left" Margin="752,352,0,0" VerticalAlignment="Top" Width="157" Height="46" Cursor="Hand" Command="{Binding AboutCommand}">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+        <Button Content="Quit" Background="white" FontSize="20" HorizontalAlignment="Left" Margin="751,421,0,0" VerticalAlignment="Top" Width="157" Height="46" Cursor="Hand" Command="{Binding CloseCommand}">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>

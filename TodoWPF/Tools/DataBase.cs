@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -11,11 +12,11 @@ namespace TodoWPF.Tools
     {
         private static DataBase instance = null;
         private static object _lock = new object();
-
-        private string connectionString = @"Data Source=(LocalDB)\CoursCSharp;Integrated Security=True";
-        public SqlConnection connection;
-        public SqlCommand command;
-        public SqlDataReader reader;
+        
+        private string connectionString = "Server=mysql-todo.alwaysdata.net;User=todo;Password=*2019#JpGodet*;DataBase=todo_wpf";
+        public MySqlConnection connection;
+        public MySqlCommand command;
+        public MySqlDataReader reader;
         public static DataBase Instance
         {
             get
@@ -30,7 +31,7 @@ namespace TodoWPF.Tools
         }
         private DataBase()
         {
-            connection = new SqlConnection(connectionString);
+            connection = new MySqlConnection(connectionString);
         }
     }
 }
