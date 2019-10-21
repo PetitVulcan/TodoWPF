@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TodoWPF"
        xmlns:viewModels="clr-namespace:TodoWPF.ViewModels"
         mc:Ignorable="d"
-        Title="Todo by PetitVulcan© Octobre 2019" Height="530" Width="955.2" WindowStartupLocation="CenterScreen">
+        Title="TodoV1.01beta by PetitVulcan© Octobre 2019" Height="530" Width="955.2" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <viewModels:MainWindowViewModel></viewModels:MainWindowViewModel>
     </Window.DataContext>
@@ -29,7 +29,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label Content="Todo Manager" FontSize="25" HorizontalAlignment="Left" Margin="385,10,0,0" VerticalAlignment="Top" Width="177" Height="44"/>
+        <Label Content="Psyko's Todoo Manager" FontSize="25" HorizontalAlignment="Left" Margin="326,10,0,0" VerticalAlignment="Top" Width="278" Height="44"/>
         <Button Content="Manage Todo" Background="white" FontSize="20" HorizontalAlignment="Left" Margin="752,139,0,0" VerticalAlignment="Top" Width="156" Height="46" Cursor="Hand" Command="{Binding ManageCommand}">
             <Button.Effect>
                 <DropShadowEffect/>
