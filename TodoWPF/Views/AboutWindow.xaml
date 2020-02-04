@@ -15,7 +15,7 @@
             <Grid Margin="0,0,0,-1">
                 <Label Content="Todo© PetitVulcan - Octobre 2019"  Foreground="White" FontSize="15" Margin="59,10,48,102" ></Label>
                 <Label Content="For more works and applications, please visit:"  Foreground="White" FontSize="15" Margin="22,52,10,58"></Label>
-                <Button Content="a.dipersio.free.fr"  Background="White"   HorizontalAlignment="Left"  VerticalAlignment="Top" Width="232" Margin="59,102,0,0" Click="Button_Click" Cursor="Hand">
+                <Button Content="petitvulcan.com"  Background="White"   HorizontalAlignment="Left"  VerticalAlignment="Top" Width="232" Margin="59,102,0,0" Click="Button_Click" Cursor="Hand">
                     <Button.Effect>
                         <DropShadowEffect/>
                     </Button.Effect>

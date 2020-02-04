@@ -26,7 +26,7 @@ namespace TodoWPF.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://a.dipersio.free.fr");
+            System.Diagnostics.Process.Start("http://petitvulcan.com");
         }
     }
 }

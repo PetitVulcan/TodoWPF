@@ -158,11 +158,11 @@ namespace TodoWPF.ViewModels
         private void NewTodo()
         {
             todo = new Todo();
-            Echeance = default;
+            Echeance = "";
             DateCreation = DateTime.Now;
-            Titre = default;
-            Description = default;
-            Details = default;
+            Titre = "";
+            Description = "";
+            Details = "";
             ImportantTrue = false;
             ImportantFalse = false;
             EcheanceDaily = false;

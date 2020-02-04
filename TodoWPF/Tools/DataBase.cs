@@ -12,8 +12,9 @@ namespace TodoWPF.Tools
     {
         private static DataBase instance = null;
         private static object _lock = new object();
-        
-        private string connectionString = "Input Your Connection Params Here";
+
+        private string connectionString = "Server=vps748191.ovh.net;User=c0Todoo;Password=je#oKYGRkMkbP;DataBase=c0Todo";
+        //private string connectionString = "Server=mysql-todo.alwaysdata.net;User=todo;Password=*2019#JpGodet*;DataBase=todo_psyko";
         public MySqlConnection connection;
         public MySqlCommand command;
         public MySqlDataReader reader;
